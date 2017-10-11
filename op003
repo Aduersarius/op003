@@ -1,0 +1,42 @@
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+float op1() {
+	char p;
+	float u, o;
+	string line;
+	istringstream stream(line);
+	stream >> u;
+	while (stream >> p) {
+		if (p == '*') { stream >> o; u = u * o; }
+		if (p == '/') { stream >> o; u = u / o; }
+		if (p == '+') { break; }
+		if (p == '-') { break; }
+	}
+	return u;
+}
+
+int main()
+{
+	char b;
+	int  n;
+	string line;
+	getline(cin, line);
+	istringstream stream(line);
+	n = op1();
+	while (stream >> b)
+	{
+		switch (b)
+		{
+		case '+':
+			n = n + op1();
+			break;
+		case '-':
+			n = n - op1();
+			break;
+        }
+	}
+	cout << n;
+	return 0;
+}
