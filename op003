@@ -1,42 +1,39 @@
 #include <iostream>
 #include <sstream>
+
 using namespace std;
-
-float op1() {
-	char p;
-	float u, o;
-	string line;
-	istringstream stream(line);
-	stream >> u;
-	while (stream >> p) {
-		if (p == '*') { stream >> o; u = u * o; }
-		if (p == '/') { stream >> o; u = u / o; }
-		if (p == '+') { break; }
-		if (p == '-') { break; }
-	}
-	return u;
-}
-
 int main()
 {
-	char b;
-	int  n;
+	char b, p;
+	float  n, u, o;
 	string line;
 	getline(cin, line);
 	istringstream stream(line);
-	n = op1();
-	while (stream >> b)
-	{
-		switch (b)
-		{
-		case '+':
-			n = n + op1();
-			break;
-		case '-':
-			n = n - op1();
-			break;
-        }
+	stream >> n;
+	while (stream >> b) {
+		if (b == '*') { stream >> o; n = n * o; }
+		if (b == '/') { stream >> o; n = n / o; }
+		if (b == '+') {
+			stream >> u;
+			while (stream >> p) {
+				if (p == '*') { stream >> o; u = u * o; }
+				if (p == '/') { stream >> o; u = u / o; }
+				if (p == '+') { break; }
+				if (p == '-') { break; }
+			}
+			n = n + u;
+		}
+		if (b == '-') {
+			stream >> u;
+			while (stream >> p) {
+				if (p == '*') { stream >> o; u = u * o; }
+				if (p == '/') { stream >> o; u = u / o; }
+				if (p == '+') { break; }
+				if (p == '-') { break; }
+			}
+			n = n - u;
+		}
 	}
-	cout << n;
+	cout << n << endl;
 	return 0;
 }
